@@ -1,417 +1,71 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Desafio das Áreas — 7º Ano</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Desafio das Áreas — 7º ano</title>
 <style>
-:root{
-  --ink:#203040; --muted:#617080; --paper:#fffdf8; --line:#34495e;
-  --accent:#3b82f6; --accent2:#14b8a6; --good:#16803c; --bad:#c62828;
-  --gold:#f59e0b; --wall:#334155; --floor:#f7f1e3;
-}
-*{box-sizing:border-box}
-body{
-  margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-  color:var(--ink);background:linear-gradient(135deg,#dff4ff,#f7f1ff 55%,#e7fff6);
-}
-header{
-  padding:18px 24px;background:#ffffffee;backdrop-filter:blur(8px);
-  border-bottom:1px solid #d7e0e8;position:sticky;top:0;z-index:10;
-}
-.header-inner{max-width:1200px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:16px}
-.logo{font-weight:900;font-size:1.25rem}.logo span{color:var(--accent)}
-.stats{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-.badge{background:#eef5ff;border:1px solid #cfe0ff;border-radius:999px;padding:7px 12px;font-weight:700}
-main{max-width:1200px;margin:24px auto;padding:0 16px}
-.hero{
-  background:var(--paper);border:1px solid #e3ded0;border-radius:22px;padding:22px;
-  box-shadow:0 14px 35px #29435a16;margin-bottom:18px;
-}
-h1{margin:0 0 6px;font-size:clamp(1.7rem,3vw,2.5rem)}
-.subtitle{margin:0;color:var(--muted)}
-.progress{height:12px;background:#e6edf2;border-radius:999px;overflow:hidden;margin-top:16px}
-.progress > div{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:.4s;width:10%}
-.grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(310px,.8fr);gap:18px}
-.card{background:white;border:1px solid #dfe6eb;border-radius:20px;padding:18px;box-shadow:0 12px 28px #29435a12}
-.plan-wrap{background:#fbfaf6;border:2px solid #e6e0d3;border-radius:16px;padding:12px;overflow:auto}
-#plan{display:block;width:100%;min-height:470px}
-.room-label{font-weight:800;font-size:15px;fill:#243447}
-.dim{font-size:12px;fill:#52606d;font-weight:700}
-.wall{stroke:var(--wall);stroke-width:6;fill:var(--floor)}
-.inner-wall{stroke:var(--wall);stroke-width:4;fill:none}
-.door{stroke:#9a6b43;stroke-width:3;fill:none}
-.window{stroke:#2196f3;stroke-width:6}
-.legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px;color:var(--muted);font-size:.88rem}
-.legend span{display:inline-flex;align-items:center;gap:5px}
-.dot{width:14px;height:8px;border-radius:3px;display:inline-block}.dwall{background:var(--wall)}.dwin{background:#2196f3}
-.info h2{margin:0 0 5px}.info p{margin:6px 0 13px;color:var(--muted)}
-.instructions{
-  background:#eef8ff;border-left:5px solid var(--accent);padding:12px 13px;border-radius:9px;
-  margin:10px 0 16px;font-size:.95rem
-}
-.question{border-top:1px solid #e6ebef;padding-top:14px;margin-top:14px}
-.qtitle{font-weight:800;margin-bottom:7px}
-input{
-  width:100%;padding:11px 12px;border:2px solid #d6dfe7;border-radius:10px;font-size:1rem;
-  outline:none;transition:.2s
-}
-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px #3b82f61a}
-.btns{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}
-button{
-  border:0;border-radius:11px;padding:11px 15px;font-weight:800;cursor:pointer;
-  background:var(--accent);color:white;font-size:.95rem
-}
-button:hover{filter:brightness(.96);transform:translateY(-1px)}
-button.secondary{background:#eaf0f5;color:var(--ink)}
-button.gold{background:var(--gold);color:#352200}
-button:disabled{opacity:.5;cursor:not-allowed;transform:none}
-.feedback{margin-top:12px;padding:12px;border-radius:11px;font-weight:700;display:none}
-.feedback.good{display:block;background:#e8f7ed;color:var(--good);border:1px solid #b9e6c8}
-.feedback.bad{display:block;background:#fff0f0;color:var(--bad);border:1px solid #f0c2c2}
-.hint{display:none;margin-top:10px;background:#fff8df;border:1px solid #f0db8b;border-radius:10px;padding:10px;color:#674f00}
-.small{font-size:.88rem;color:var(--muted)}
-#finish{display:none;text-align:center}
-.trophy{font-size:4rem}
-.score-big{font-size:2.5rem;font-weight:900;color:var(--accent)}
-.steps{margin:12px auto;max-width:700px;text-align:left;background:#f8fafc;border-radius:14px;padding:15px}
-.steps li{margin:7px 0}
-@media(max-width:850px){.grid{grid-template-columns:1fr}.header-inner{align-items:flex-start;flex-direction:column}#plan{min-height:390px}}
+body{margin:0;font-family:Arial,sans-serif;background:#eef7fb;color:#203040}
+header{background:#fff;padding:16px 22px;border-bottom:1px solid #ccd7df;position:sticky;top:0;z-index:3}
+.wrap{max-width:1150px;margin:auto}.top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.badge{background:#edf4ff;border:1px solid #d3e1fa;border-radius:20px;padding:7px 12px;font-weight:bold}
+main{max-width:1150px;margin:20px auto;padding:0 15px}.hero,.card{background:#fff;border-radius:18px;padding:18px;box-shadow:0 8px 24px #18364d12;margin-bottom:16px}
+h1{margin:0 0 5px}.muted{color:#657483}.progress{height:10px;background:#e5ebef;border-radius:20px;margin-top:14px}.progress div{height:100%;background:#2878df;border-radius:20px}
+.grid{display:grid;grid-template-columns:1.55fr .8fr;gap:16px}.plan{background:#fbfaf5;border:2px solid #e4dece;border-radius:14px;padding:8px;overflow:auto}
+svg{width:100%;min-height:480px;display:block}.room,.shape{fill:#f5efe1;stroke:#263746;stroke-width:7;stroke-linejoin:round}.label{font-size:17px;font-weight:bold;fill:#263746}.dim{font-size:13px;font-weight:bold;fill:#526272}
+.mission{background:#edf7ff;border-left:5px solid #2878df;padding:12px;border-radius:8px;margin:12px 0}
+.q{border-top:1px solid #e4e9ed;padding:13px 0}.q b{display:block;margin-bottom:7px}
+input{width:100%;padding:11px;border:2px solid #d4dee6;border-radius:9px;font-size:16px;box-sizing:border-box}
+button{border:0;border-radius:9px;padding:11px 14px;font-weight:bold;cursor:pointer;background:#2878df;color:white;margin:4px 4px 0 0}button.alt{background:#e9eff4;color:#203040}button.dica{background:#f5ad19;color:#352600}
+.feedback,.hint{display:none;margin-top:10px;padding:11px;border-radius:9px}.good{background:#e8f7ed;color:#176b37}.bad{background:#fff0f0;color:#a92323}.hint{background:#fff8dd;color:#614b00}
+#finish{display:none;text-align:center}.big{font-size:40px;font-weight:bold;color:#2878df}
+@media(max-width:850px){.grid{grid-template-columns:1fr}svg{min-height:380px}}
 </style>
 </head>
 <body>
-<header>
-  <div class="header-inner">
-    <div class="logo">🏗️ Desafio das <span>Áreas</span> — 7º ano</div>
-    <div class="stats">
-      <div class="badge" id="phaseBadge">Fase 1/10</div>
-      <div class="badge">⭐ Pontos: <span id="score">0</span></div>
-    </div>
-  </div>
-</header>
-
+<header><div class="wrap top"><strong>🏗️ Desafio das <span style="color:#2878df">Áreas</span> — 7º ano</strong><div><span class="badge" id="phase">Fase 1/10</span> <span class="badge">⭐ <span id="score">0</span></span></div></div></header>
 <main>
-<section class="hero">
-  <h1>Arquiteto(a) por um dia</h1>
-  <p class="subtitle">Observe a planta, faça os cálculos no seu caderno e depois confira suas respostas.</p>
-  <div class="progress"><div id="bar"></div></div>
-</section>
-
+<section class="hero"><h1>Arquiteto(a) por um dia</h1><div class="muted">Faça as contas no caderno antes de registrar as respostas.</div><div class="progress"><div id="bar" style="width:10%"></div></div></section>
 <div id="game" class="grid">
-  <section class="card">
-    <div id="phaseIntro"></div>
-    <div class="plan-wrap">
-      <svg id="plan" viewBox="0 0 800 500" aria-label="Planta arquitetônica"></svg>
-    </div>
-    <div class="legend">
-      <span><i class="dot dwall"></i> paredes</span>
-      <span><i class="dot dwin"></i> janelas</span>
-      <span>📏 medidas em metros</span>
-    </div>
-  </section>
-
-  <aside class="card info">
-    <h2 id="phaseTitle"></h2>
-    <p id="phaseText"></p>
-    <div class="instructions"><strong>Missão:</strong> calcule as áreas solicitadas usando as medidas da planta. Registre as contas no caderno antes de digitar as respostas.</div>
-    <div id="questions"></div>
-    <div class="btns">
-      <button class="gold" id="hintBtn">💡 Dica</button>
-      <button id="checkBtn">✓ Conferir</button>
-      <button class="secondary" id="nextBtn" style="display:none">Próxima fase →</button>
-    </div>
-    <div id="hint" class="hint"></div>
-    <div id="feedback" class="feedback"></div>
-    <p class="small" style="margin-top:14px">💡 Dica pedagógica: incentive os alunos a desenhar retângulos auxiliares quando um cômodo tiver formato composto.</p>
-  </aside>
+<section class="card"><div class="muted" id="intro"></div><h2 id="title"></h2><div class="plan"><svg id="svg" viewBox="0 0 800 520"></svg></div><p class="muted">📏 As medidas estão em metros. A partir da fase 3, não há divisões internas: você deve descobrir como decompor a figura.</p></section>
+<aside class="card"><div class="mission"><b>Missão:</b> <span id="text"></span><br><br>✏️ Desenhe retângulos auxiliares no caderno quando necessário.</div><div id="qs"></div><button class="dica" onclick="hint()">💡 Dica</button><button id="check" onclick="check()">✓ Conferir</button><button class="alt" id="next" onclick="next()" style="display:none">Próxima →</button><div id="hint" class="hint"></div><div id="fb" class="feedback"></div></aside>
 </div>
-
-<section id="finish" class="card">
-  <div class="trophy">🏆</div>
-  <h2>Projeto concluído!</h2>
-  <p>Você terminou as 10 fases do Desafio das Áreas.</p>
-  <div class="score-big" id="finalScore">0 pontos</div>
-  <div class="steps">
-    <strong>Para conversar com a turma:</strong>
-    <ul>
-      <li>Em quais fases foi possível usar diretamente <strong>base × altura</strong>?</li>
-      <li>Em quais foi necessário dividir uma figura em partes?</li>
-      <li>Como os números decimais mudaram os cálculos?</li>
-      <li>Por que podemos somar as áreas de partes que não se sobrepõem?</li>
-    </ul>
-  </div>
-  <button onclick="restart()">🔄 Jogar novamente</button>
-</section>
+<section id="finish" class="card"><div style="font-size:60px">🏆</div><h2>Projeto concluído!</h2><div class="big" id="final"></div><p class="muted">Pergunta para a turma: quais retângulos vocês imaginaram dentro das plantas?</p><button onclick="restart()">🔄 Jogar novamente</button></section>
 </main>
-
 <script>
-const phases = [
-{
- title:"A casa do quadrado",
- text:"Começamos com formas retangulares simples. Calcule a área dos dois cômodos indicados.",
- intro:"Fase 1 · formas retangulares",
- hint:"Para um retângulo, use: área = comprimento × largura.",
- rooms:[
-  {name:"Sala",x:40,y:50,w:300,h:180,area:18,dim:["6 m","3 m"]},
-  {name:"Quarto",x:340,y:50,w:220,h:180,area:11,dim:["5,5 m","2 m"]},
- ],
- questions:[
-  ["Qual é a área da Sala?","18"],
-  ["Qual é a área do Quarto?","11"]
- ]
-},
-{
- title:"Mais um cômodo",
- text:"Agora a planta tem três ambientes. Observe com atenção as medidas.",
- intro:"Fase 2 · multiplicação de medidas",
- hint:"Multiplique as duas dimensões de cada retângulo. Lembre-se de que o resultado é dado em m².",
- rooms:[
-  {name:"Sala",x:35,y:45,w:270,h:170,area:21,dim:["7 m","3 m"]},
-  {name:"Cozinha",x:305,y:45,w:180,h:170,area:12,dim:["6 m","2 m"]},
-  {name:"Quarto",x:485,y:45,w:240,h:170,area:18,dim:["6 m","3 m"]}
- ],
- questions:[
-  ["Área da Sala (m²)?","21"],
-  ["Área da Cozinha (m²)?","12"],
-  ["Área do Quarto (m²)?","18"]
- ]
-},
-{
- title:"Medidas decimais",
- text:"Os projetos reais nem sempre usam medidas inteiras. Nesta fase aparecem números decimais.",
- intro:"Fase 3 · números decimais",
- hint:"Calcule normalmente. Exemplo: 4,5 × 3 = 13,5. Digite a resposta usando vírgula ou ponto.",
- rooms:[
-  {name:"Sala",x:45,y:45,w:280,h:180,area:13.5,dim:["4,5 m","3 m"]},
-  {name:"Quarto",x:325,y:45,w:210,h:180,area:9.45,dim:["4,5 m","2,1 m"]},
-  {name:"Banheiro",x:535,y:45,w:180,h:180,area:7.2,dim:["3,6 m","2 m"]}
- ],
- questions:[
-  ["Área da Sala (m²)?","13.5"],
-  ["Área do Quarto (m²)?","9.45"],
-  ["Área do Banheiro (m²)?","7.2"]
- ]
-},
-{
- title:"A sala em formato de L",
- text:"Este cômodo não é um retângulo inteiro. Divida mentalmente o espaço em dois retângulos e some as áreas.",
- intro:"Fase 4 · figura composta",
- hint:"Imagine uma linha vertical separando o L em dois retângulos. Calcule a área de cada parte e depois some.",
- composite:true,
- rooms:[
-  {name:"Sala em L",x:80,y:55,w:390,h:270,area:34,dim:["8 m × 4 m","retirar 2 m × 3 m"]},
-  {name:"Quarto",x:470,y:55,w:230,h:180,area:12,dim:["4 m","3 m"]}
- ],
- questions:[
-  ["Área total da Sala em L (m²)?","26"],
-  ["Área do Quarto (m²)?","12"]
- ]
-},
-{
- title:"O corredor escondido",
- text:"Parte da planta tem um corredor. Para encontrar a área útil da sala, você precisará perceber qual pedaço deve ser retirado.",
- intro:"Fase 5 · decompor e subtrair",
- hint:"A sala poderia ser um retângulo de 9 m × 5 m. O corredor ocupa um retângulo de 3 m × 2 m dentro desse espaço. Faça: área maior − área retirada.",
- composite:true,
- rooms:[
-  {name:"Sala",x:60,y:55,w:450,h:250,area:39,dim:["9 m × 5 m","corredor: 3 m × 2 m"]},
-  {name:"Corredor",x:510,y:55,w:150,h:100,area:6,dim:["3 m","2 m"]},
-  {name:"Quarto",x:510,y:155,w:190,h:150,area:12,dim:["4 m","3 m"]}
- ],
- questions:[
-  ["Área útil da Sala, descontando o corredor (m²)?","39"],
-  ["Área do Corredor (m²)?","6"],
-  ["Área do Quarto (m²)?","12"]
- ]
-},
-{
- title:"Dividindo o escritório",
- text:"O escritório tem formato irregular. Use as medidas indicadas para dividi-lo em retângulos menores.",
- intro:"Fase 6 · decomposição em partes",
- hint:"Divida o escritório em dois retângulos: um de 5 m × 3 m e outro de 2 m × 2 m. Some as duas áreas.",
- composite:true,
- rooms:[
-  {name:"Escritório",x:65,y:45,w:380,h:210,area:19,dim:["5 m × 3 m + 2 m × 2 m"]},
-  {name:"Quarto",x:445,y:45,w:255,h:210,area:15,dim:["5 m","3 m"]},
-  {name:"Varanda",x:65,y:255,w:380,h:95,area:7.6,dim:["4 m","1,9 m"]}
- ],
- questions:[
-  ["Área total do Escritório (m²)?","19"],
-  ["Área do Quarto (m²)?","15"],
-  ["Área da Varanda (m²)?","7.6"]
- ]
-},
-{
- title:"Planta com decimais",
- text:"Agora combine números decimais com uma figura composta. Atenção às casas decimais!",
- intro:"Fase 7 · decimais + composição",
- hint:"A sala é formada por dois retângulos: 4,5 × 3 e 2 × 1,5. Calcule cada parte e some.",
- composite:true,
- rooms:[
-  {name:"Sala",x:55,y:50,w:410,h:250,area:16.5,dim:["4,5 m × 3 m + 2 m × 1,5 m"]},
-  {name:"Quarto",x:465,y:50,w:230,h:170,area:10.5,dim:["3,5 m","3 m"]},
-  {name:"Banheiro",x:465,y:220,w:230,h:80,area:4.8,dim:["2,4 m","2 m"]}
- ],
- questions:[
-  ["Área da Sala (m²)?","16.5"],
-  ["Área do Quarto (m²)?","10.5"],
-  ["Área do Banheiro (m²)?","4.8"]
- ]
-},
-{
- title:"O desafio do recorte",
- text:"Uma suíte tem um recorte em um dos cantos. Descubra a área sem contar o espaço que não pertence ao cômodo.",
- intro:"Fase 8 · recorte + subtração",
- hint:"Calcule o retângulo completo (8 × 5) e retire o recorte (2,5 × 2). Depois some a área do banheiro se for solicitada.",
- composite:true,
- rooms:[
-  {name:"Suíte",x:55,y:50,w:430,h:270,area:35,dim:["8 m × 5 m − recorte 2,5 m × 2 m"]},
-  {name:"Banheiro",x:485,y:50,w:205,h:170,area:8.5,dim:["3,4 m","2,5 m"]},
-  {name:"Varanda",x:485,y:220,w:205,h:100,area:6,dim:["3 m","2 m"]}
- ],
- questions:[
-  ["Área da Suíte, descontando o recorte (m²)?","35"],
-  ["Área do Banheiro (m²)?","8.5"],
-  ["Área da Varanda (m²)?","6"]
- ]
-},
-{
- title:"Projeto quase real",
- text:"As medidas estão em metros e incluem números decimais. Para um dos cômodos, será preciso dividir a figura em três partes.",
- intro:"Fase 9 · três partes + decimais",
- hint:"Sala: 5,2 × 3 + 2 × 1,8 + 1,5 × 2. Calcule as três áreas e some.",
- composite:true,
- rooms:[
-  {name:"Sala",x:50,y:45,w:440,h:280,area:22.8,dim:["5,2×3 + 2×1,8 + 1,5×2"]},
-  {name:"Cozinha",x:490,y:45,w:210,h:160,area:10.08,dim:["4,2 m","2,4 m"]},
-  {name:"Quarto",x:490,y:205,w:210,h:120,area:8.75,dim:["3,5 m","2,5 m"]}
- ],
- questions:[
-  ["Área da Sala (m²)?","22.8"],
-  ["Área da Cozinha (m²)?","10.08"],
-  ["Área do Quarto (m²)?","8.75"]
- ]
-},
-{
- title:"Grande desafio arquitetônico",
- text:"Última planta! Há um cômodo em L, medidas decimais e um recorte. Mostre tudo o que aprendeu.",
- intro:"Fase 10 · desafio final",
- hint:"Sala: calcule 7,5×4 e retire 2,5×1,5. Cozinha: 3,2×2,5. Escritório: divida em 4×2,2 e 1,5×1,2. Confira as três respostas.",
- composite:true,
- rooms:[
-  {name:"Sala",x:45,y:45,w:400,h:270,area:26.25,dim:["7,5×4 − recorte 2,5×1,5"]},
-  {name:"Cozinha",x:445,y:45,w:250,h:150,area:8,dim:["3,2 m","2,5 m"]},
-  {name:"Escritório",x:445,y:195,w:250,h:120,area:10.6,dim:["4×2,2 + 1,5×1,2"]}
- ],
- questions:[
-  ["Área da Sala (m²)?","26.25"],
-  ["Área da Cozinha (m²)?","8"],
-  ["Área do Escritório (m²)?","10.6"]
- ]
-}
+const P=[
+{t:"Primeira casa",i:"Fase 1 · ambientes retangulares",x:"Calcule a área da Sala e do Quarto. As paredes compartilhadas têm medidas compatíveis.",h:"Sala: 6×4. Quarto: 6×3.",r:[["Sala",80,75,300,200,"6 m × 4 m",24],["Quarto",380,75,300,150,"6 m × 3 m",18]],q:[["Área da Sala (m²)?",24],["Área do Quarto (m²)?",18]]},
+{t:"Casa com três ambientes",i:"Fase 2 · leitura de uma planta",x:"Calcule a área dos três ambientes. A parede horizontal tem o mesmo comprimento onde se encontram.",h:"Calcule cada retângulo. Sala 6×4; Cozinha 4×4; Lavabo 2×4.",r:[["Sala",70,70,300,180,"6 m × 4 m",24],["Cozinha",370,70,200,180,"4 m × 4 m",16],["Lavabo",570,70,100,180,"2 m × 4 m",8]],q:[["Área da Sala (m²)?",24],["Área da Cozinha (m²)?",16],["Área do Lavabo (m²)?",8]]},
+{t:"Uma planta em L",i:"Fase 3 · compondo uma figura",x:"A planta não está dividida em cômodos. Descubra como separar mentalmente o L em retângulos.",h:"Pense em 10×7 e retire o recorte 4×3.",s:"L",q:[["Área total da planta (m²)?",58]]},
+{t:"A casa em degrau",i:"Fase 4 · decomposição",x:"Crie no caderno uma linha imaginária que transforme o degrau em dois retângulos.",h:"Uma decomposição é 8×4 + 4×3.",s:"degrau",q:[["Área total da planta (m²)?",44]]},
+{t:"Projeto com recorte",i:"Fase 5 · subtração",x:"A planta é um retângulo com um recorte. Descubra a área construída.",h:"Calcule 12×7 e retire 5×3.",s:"recorte",q:[["Área total da planta (m²)?",69]]},
+{t:"Formato de T",i:"Fase 6 · duas partes",x:"Não há paredes internas. Imagine dois retângulos que formam o T.",h:"Separe em 10×3 e 4×5.",s:"T",q:[["Área total da planta (m²)?",50]]},
+{t:"Primeiros decimais",i:"Fase 7 · composição com decimais",x:"A figura continua sem divisões internas. Encontre uma decomposição usando retângulos.",h:"Uma decomposição: 6,5×3 + 3×2,5.",s:"degrauD",q:[["Área total da planta (m²)?",26.25]]},
+{t:"Recorte decimal",i:"Fase 8 · decimais + subtração",x:"Use a estratégia do retângulo maior menos o recorte.",h:"Calcule 9,5×6 − 3,5×2,4.",s:"recorteD",q:[["Área total da planta (m²)?",48.6]]},
+{t:"Desafio das três partes",i:"Fase 9 · três retângulos",x:"A figura é uma única planta. Tente enxergar três retângulos sem desenhar paredes na planta.",h:"Uma decomposição possível: 7,2×2,5 + 3×2 + 2×1,5.",s:"zig",q:[["Área total da planta (m²)?",27]]},
+{t:"Grande projeto arquitetônico",i:"Fase 10 · desafio final",x:"Combine composição, recorte e números decimais. Não há divisões internas.",h:"Uma estratégia: 11,5×7 − 4,5×2,5.",s:"final",q:[["Área total da planta (m²)?",69.5]]}
 ];
-
-let phase=0, score=0, checked=false;
-
-function fmt(n){
- return String(n).replace('.',',');
-}
-function drawPlan(p){
- const svg=document.getElementById('plan');
- svg.innerHTML='';
- p.rooms.forEach((r,i)=>{
-   const g=document.createElementNS("http://www.w3.org/2000/svg","g");
-   const rect=document.createElementNS("http://www.w3.org/2000/svg","rect");
-   rect.setAttribute("x",r.x);rect.setAttribute("y",r.y);rect.setAttribute("width",r.w);rect.setAttribute("height",r.h);
-   rect.setAttribute("class","wall");g.appendChild(rect);
-
-   // decorative windows
-   const win=document.createElementNS("http://www.w3.org/2000/svg","line");
-   win.setAttribute("x1",r.x+r.w*.35);win.setAttribute("x2",r.x+r.w*.65);
-   win.setAttribute("y1",r.y);win.setAttribute("y2",r.y);
-   win.setAttribute("class","window");g.appendChild(win);
-
-   const text=document.createElementNS("http://www.w3.org/2000/svg","text");
-   text.setAttribute("x",r.x+r.w/2);text.setAttribute("y",r.y+r.h/2-7);
-   text.setAttribute("text-anchor","middle");text.setAttribute("class","room-label");
-   text.textContent=r.name;g.appendChild(text);
-
-   const dim=document.createElementNS("http://www.w3.org/2000/svg","text");
-   dim.setAttribute("x",r.x+r.w/2);dim.setAttribute("y",r.y+r.h/2+18);
-   dim.setAttribute("text-anchor","middle");dim.setAttribute("class","dim");
-   dim.textContent=r.dim.join("  |  ");g.appendChild(dim);
-   svg.appendChild(g);
- });
- // outer title
- const title=document.createElementNS("http://www.w3.org/2000/svg","text");
- title.setAttribute("x","400");title.setAttribute("y","25");title.setAttribute("text-anchor","middle");
- title.setAttribute("class","dim");title.textContent="PLANTA BAIXA — medidas em metros";
- svg.appendChild(title);
-}
-function render(){
- const p=phases[phase];
- document.getElementById('phaseBadge').textContent=`Fase ${phase+1}/10`;
- document.getElementById('score').textContent=score;
- document.getElementById('bar').style.width=((phase+1)/10*100)+'%';
- document.getElementById('phaseTitle').textContent=p.title;
- document.getElementById('phaseText').textContent=p.text;
- document.getElementById('phaseIntro').innerHTML=`<div class="small"><strong>${p.intro}</strong></div>`;
- drawPlan(p);
- const qs=document.getElementById('questions');
- qs.innerHTML=p.questions.map((q,i)=>`
-   <div class="question">
-     <div class="qtitle">${i+1}. ${q[0]}</div>
-     <input id="ans${i}" inputmode="decimal" placeholder="Digite sua resposta em m²">
-   </div>`).join('');
- document.getElementById('feedback').className='feedback';
- document.getElementById('feedback').style.display='none';
- document.getElementById('hint').style.display='none';
- document.getElementById('hint').textContent=p.hint;
- document.getElementById('checkBtn').style.display='inline-block';
- document.getElementById('nextBtn').style.display='none';
- checked=false;
-}
-function normalize(v){
- return parseFloat(String(v).trim().replace(',','.'));
-}
-function check(){
- if(checked)return;
- const p=phases[phase];
- let correct=0;
- p.questions.forEach((q,i)=>{
-   const value=normalize(document.getElementById('ans'+i).value);
-   const target=parseFloat(q[1]);
-   if(Number.isFinite(value) && Math.abs(value-target)<0.011) correct++;
- });
- score += correct*10;
- checked=true;
- const fb=document.getElementById('feedback');
- fb.className=correct===p.questions.length?'feedback good':'feedback '+(correct?'good':'bad');
- fb.style.display='block';
- if(correct===p.questions.length){
-   fb.innerHTML=`🎉 Excelente! Você acertou <strong>${correct}/${p.questions.length}</strong>. +${correct*10} pontos.`;
- }else{
-   fb.innerHTML=`Você acertou <strong>${correct}/${p.questions.length}</strong>. Revise as contas no caderno e observe novamente as medidas da planta.`;
- }
- document.getElementById('checkBtn').style.display='none';
- document.getElementById('nextBtn').style.display='inline-block';
-}
-function next(){
- if(phase<phases.length-1){phase++;render();}
- else{
-   document.getElementById('game').style.display='none';
-   document.getElementById('finish').style.display='block';
-   document.getElementById('finalScore').textContent=score+' pontos';
-   document.getElementById('bar').style.width='100%';
- }
-}
-function restart(){phase=0;score=0;document.getElementById('game').style.display='grid';document.getElementById('finish').style.display='none';render();}
-document.getElementById('checkBtn').onclick=check;
-document.getElementById('nextBtn').onclick=next;
-document.getElementById('hintBtn').onclick=()=>{
- const h=document.getElementById('hint');h.style.display=h.style.display==='block'?'none':'block';
-};
-document.addEventListener('keydown',e=>{if(e.key==='Enter' && document.activeElement.tagName==='INPUT')check();});
+let n=0,score=0,done=false;
+const E=id=>document.getElementById(id);
+function tx(x,y,v,c="dim"){let e=document.createElementNS("http://www.w3.org/2000/svg","text");e.setAttribute("x",x);e.setAttribute("y",y);e.setAttribute("text-anchor","middle");e.setAttribute("class",c);e.textContent=v;return e}
+function draw(p){let s=E("svg");s.innerHTML="";s.append(tx(400,27,"PLANTA BAIXA — medidas em metros","dim"));
+if(p.r){p.r.forEach(a=>{let r=document.createElementNS("http://www.w3.org/2000/svg","rect");r.setAttribute("x",a[1]);r.setAttribute("y",a[2]);r.setAttribute("width",a[3]);r.setAttribute("height",a[4]);r.setAttribute("class","room");s.append(r);s.append(tx(a[1]+a[3]/2,a[2]+a[4]/2-6,a[0],"label"));s.append(tx(a[1]+a[3]/2,a[2]+a[4]/2+17,a[5]));});return}
+let pts;
+if(p.s=="L")pts=[[90,70],[650,70],[650,240],[430,240],[430,390],[90,390]];
+if(p.s=="degrau")pts=[[90,75],[620,75],[620,235],[410,235],[410,365],[90,365]];
+if(p.s=="recorte")pts=[[80,65],[680,65],[680,400],[430,400],[430,255],[80,255]];
+if(p.s=="T")pts=[[90,65],[670,65],[670,220],[500,220],[500,390],[260,390],[260,220],[90,220]];
+if(p.s=="degrauD")pts=[[90,75],[650,75],[650,250],[430,250],[430,380],[90,380]];
+if(p.s=="recorteD")pts=[[80,70],[680,70],[680,390],[460,390],[460,235],[80,235]];
+if(p.s=="zig")pts=[[70,75],[500,75],[500,155],[680,155],[680,315],[560,315],[560,395],[70,395]];
+if(p.s=="final")pts=[[75,65],[680,65],[680,390],[440,390],[440,255],[75,255]];
+let poly=document.createElementNS("http://www.w3.org/2000/svg","polygon");poly.setAttribute("points",pts.map(z=>z.join(",")).join(" "));poly.setAttribute("class","shape");s.append(poly);
+const labels={L:["10 m","7 m","4 m","3 m"],degrau:["8 m","4 m","4 m","3 m"],recorte:["12 m","7 m","5 m","3 m"],T:["10 m","3 m","4 m","5 m"],degrauD:["6,5 m","3 m","3 m","2,5 m"],recorteD:["9,5 m","6 m","3,5 m","2,4 m"],zig:["7,2 m","2 m","3 m","2 m","2 m","1,5 m"],final:["11,5 m","7 m","4,5 m","2,5 m"]};let pos=[[370,55],[700,230],[550,245],[450,330],[285,410],[535,370]];(labels[p.s]||[]).forEach((v,i)=>s.append(tx(pos[i][0],pos[i][1],v)));s.append(tx(400,475,"Nenhuma parede interna: descubra você como decompor.","dim"))}
+function render(){let p=P[n];E("phase").textContent="Fase "+(n+1)+"/10";E("score").textContent=score;E("bar").style.width=(n+1)*10+"%";E("intro").textContent=p.i;E("title").textContent=p.t;E("text").textContent=p.x;E("hint").textContent=p.h;E("hint").style.display="none";draw(p);E("qs").innerHTML=p.q.map((q,i)=>'<div class="q"><b>'+(i+1)+". "+q[0]+'</b><input id="a'+i+'" inputmode="decimal" placeholder="Resposta em m²"></div>').join("");E("check").style.display="inline-block";E("next").style.display="none";E("fb").style.display="none";done=false}
+function check(){if(done)return;let p=P[n],ok=0;p.q.forEach((q,i)=>{let v=parseFloat(E("a"+i).value.replace(",","."));if(isFinite(v)&&Math.abs(v-q[1])<.011)ok++});score+=ok*10;done=true;let f=E("fb");f.className="feedback "+(ok==p.q.length?"good":"bad");f.innerHTML=ok==p.q.length?"🎉 Excelente! Acertou "+ok+"/"+p.q.length+".":"Você acertou "+ok+"/"+p.q.length+". Volte ao desenho e tente outra decomposição.";f.style.display="block";E("check").style.display="none";E("next").style.display="inline-block"}
+function next(){if(n<9){n++;render()}else{E("game").style.display="none";E("finish").style.display="block";E("final").textContent=score+" pontos"}}
+function hint(){let h=E("hint");h.style.display=h.style.display=="block"?"none":"block"}
+function restart(){n=0;score=0;E("game").style.display="grid";E("finish").style.display="none";render()}
 render();
 </script>
 </body>
