@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Desafio do Arquiteto | Áreas - 7º Ano</title>
+<style>
+:root{
+  --ink:#23313f; --paper:#fffdf8; --blue:#2563eb; --teal:#0f766e;
+  --orange:#f97316; --green:#16a34a; --red:#dc2626; --line:#334155;
+  --soft:#eef5ff; --shadow:0 14px 40px rgba(35,49,63,.13);
+}
+*{box-sizing:border-box}
+body{
+  margin:0; font-family:Arial,Helvetica,sans-serif; color:var(--ink);
+  background:linear-gradient(135deg,#eaf4ff 0%,#fff8e9 55%,#eafbf5 100%);
+  min-height:100vh;
+}
+button,input{font:inherit}
+button{cursor:pointer}
+header{
+  padding:22px 5vw 14px; display:flex; justify-content:space-between; align-items:center;
+  gap:18px; flex-wrap:wrap;
+}
+.logo{display:flex;align-items:center;gap:12px}
+.logoIcon{font-size:42px}
+h1{margin:0;font-size:clamp(25px,4vw,42px)}
+.subtitle{margin:4px 0 0;color:#64748b;font-size:15px}
+.stats{display:flex;gap:10px;flex-wrap:wrap}
+.badge{
+  background:white;border:2px solid #dbe5ef;border-radius:14px;padding:9px 14px;
+  box-shadow:0 4px 12px rgba(0,0,0,.05);font-weight:bold
+}
+main{width:min(1180px,92vw);margin:0 auto 35px}
+.card{
+  background:rgba(255,255,255,.94);border:1px solid #e1e8ef;border-radius:24px;
+  box-shadow:var(--shadow);padding:24px
+}
+.intro{display:grid;grid-template-columns:1.2fr .8fr;gap:20px;align-items:center}
+@media(max-width:800px){.intro{grid-template-columns:1fr}}
+.hero{
+  padding:25px;border-radius:20px;background:linear-gradient(135deg,#eff6ff,#f0fdf4);
+}
+.hero h2{font-size:30px;margin:0 0 10px}
+.hero p{line-height:1.55;color:#475569}
+.rules{display:grid;gap:10px}
+.rule{display:flex;gap:10px;align-items:flex-start;padding:12px;background:#fff;border-radius:13px}
+.rule b{color:var(--blue)}
+.primary{
+  border:0;background:var(--blue);color:#fff;padding:13px 20px;border-radius:13px;
+  font-weight:800;box-shadow:0 6px 16px rgba(37,99,235,.25)
+}
+.secondary{border:2px solid #cbd5e1;background:#fff;color:var(--ink);padding:11px 17px;border-radius:12px;font-weight:700}
+.primary:hover,.secondary:hover{transform:translateY(-1px)}
+.hidden{display:none!important}
+.topline{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:15px;flex-wrap:wrap}
+.progress{height:10px;background:#e5e7eb;border-radius:99px;overflow:hidden;margin:10px 0 20px}
+.progress span{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--teal));transition:.35s}
+.gamegrid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(280px,.55fr);gap:20px}
+@media(max-width:900px){.gamegrid{grid-template-columns:1fr}}
+.planwrap{
+  background:#f8fafc;border:2px solid #dbe5ef;border-radius:18px;padding:15px;
+  overflow:auto;
+}
+.floorplan{
+  min-width:650px; height:470px; position:relative; margin:auto;
+  background:#f5f0df;border:7px solid var(--line);border-radius:3px;
+  box-shadow:inset 0 0 0 2px #94a3b8;
+}
+.room{
+  position:absolute;border:3px solid var(--line);display:flex;align-items:center;
+  justify-content:center;text-align:center;flex-direction:column;padding:8px;
+  transition:.2s;
+}
+.room:hover{background:#dbeafe!important}
+.room strong{font-size:16px}
+.room small{margin-top:4px;font-weight:bold;color:#475569}
+.r1{left:0;top:0;width:53%;height:53%;background:#dff2ff}
+.r2{left:53%;top:0;width:47%;height:53%;background:#fff0d9}
+.r3{left:0;top:53%;width:34%;height:47%;background:#e5f8e9}
+.r4{left:34%;top:53%;width:40%;height:47%;background:#f4e8ff}
+.r5{left:74%;top:53%;width:26%;height:47%;background:#ffe5ed}
+.cot{
+  position:absolute;background:#fff;border:1px solid #64748b;border-radius:4px;
+  padding:3px 7px;font-size:12px;font-weight:800;z-index:4
+}
+.ctop{top:-30px;left:25%}.cright{right:-45px;top:22%}
+.cbot{bottom:-30px;left:13%}.cleft{left:-45px;top:22%}
+.door{position:absolute;background:#fff;border:3px solid var(--line);z-index:5}
+.d1{width:65px;height:8px;left:48%;top:-7px}.d2{width:8px;height:60px;right:-7px;top:47%}
+.window{position:absolute;background:#80c7ff;border:3px solid #1d4ed8;z-index:5}
+.w1{width:85px;height:7px;left:12%;top:-7px}.w2{width:7px;height:80px;right:-7px;top:10%}
+.measureNote{margin:12px 0 0;color:#64748b;font-size:13px;text-align:center}
+.answerPanel{display:flex;flex-direction:column;gap:13px}
+.questionBox{padding:18px;background:#f8fafc;border-radius:17px;border:2px solid #e2e8f0}
+.questionBox h3{margin:0 0 5px}
+.formula{font-size:14px;color:#64748b;margin-bottom:12px}
+.answerRow{display:flex;gap:8px}
+.answerRow input{width:100%;padding:13px;border:2px solid #cbd5e1;border-radius:11px;font-size:18px;font-weight:bold}
+.unit{font-weight:bold;align-self:center}
+.feedback{min-height:48px;padding:12px;border-radius:12px;font-weight:bold;line-height:1.35}
+.ok{background:#dcfce7;color:#166534;border:1px solid #86efac}
+.bad{background:#fee2e2;color:#991b1b;border:1px solid #fca5a5}
+.tip{background:#fff7ed;color:#9a3412;border:1px solid #fed7aa}
+.scoreBig{text-align:center;font-size:48px;font-weight:900;color:var(--blue);margin:5px}
+.stars{text-align:center;font-size:32px}
+.result{text-align:center;padding:30px}
+table{width:100%;border-collapse:collapse;margin-top:14px}
+th,td{padding:10px;border-bottom:1px solid #e2e8f0;text-align:left}
+th{background:#f8fafc}
+footer{text-align:center;color:#64748b;font-size:13px;padding:15px}
+.chips{display:flex;gap:7px;flex-wrap:wrap}
+.chip{padding:7px 10px;border-radius:99px;background:#eef2ff;color:#3730a3;font-size:12px;font-weight:bold}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">
+    <div class="logoIcon">🏠</div>
+    <div><h1>Desafio do Arquiteto</h1><div class="subtitle">Áreas de figuras planas • 7º ano</div></div>
+  </div>
+  <div class="stats">
+    <div class="badge">⭐ Pontos: <span id="score">0</span></div>
+    <div class="badge">🏗️ Fase: <span id="phase">1</span>/<span id="total">5</span></div>
+  </div>
+</header>
+
+<main>
+<section id="intro" class="card intro">
+  <div class="hero">
+    <div class="chips"><span class="chip">MATEMÁTICA</span><span class="chip">ÁREA</span><span class="chip">PLANTA BAIXA</span></div>
+    <h2>Você virou arquiteto! 📐</h2>
+    <p>
+      Uma família contratou você para analisar as plantas de uma casa.
+      Seu desafio é calcular a <b>área de cada cômodo</b> no caderno e depois conferir o resultado no jogo.
+    </p>
+    <p><b>Regra de ouro:</b> primeiro faça o cálculo no caderno. Só depois digite a resposta!</p>
+    <button class="primary" onclick="startGame()">Começar o projeto →</button>
+  </div>
+  <div class="rules">
+    <div class="rule">📏 <span><b>1.</b> Observe as medidas indicadas na planta.</span></div>
+    <div class="rule">✏️ <span><b>2.</b> Calcule a área no seu caderno.</span></div>
+    <div class="rule">🔢 <span><b>3.</b> Digite o resultado em m².</span></div>
+    <div class="rule">🏆 <span><b>4.</b> Avance pelas fases e descubra a área total.</span></div>
+  </div>
+</section>
+
+<section id="game" class="hidden">
+  <div class="topline">
+    <div><b id="phaseTitle">Fase 1 • Planta Residencial</b><div id="phaseDesc" class="subtitle"></div></div>
+    <button class="secondary" onclick="showHelp()">💡 Dica</button>
+  </div>
+  <div class="progress"><span id="progressBar" style="width:20%"></span></div>
+
+  <div class="gamegrid">
+    <div class="card">
+      <div class="planwrap">
+        <div class="floorplan" id="floorplan">
+          <div class="cot ctop" id="ctop"></div>
+          <div class="cot cright" id="cright"></div>
+          <div class="cot cbot" id="cbot"></div>
+          <div class="cot cleft" id="cleft"></div>
+          <div class="room r1" id="room1"></div>
+          <div class="room r2" id="room2"></div>
+          <div class="room r3" id="room3"></div>
+          <div class="room r4" id="room4"></div>
+          <div class="room r5" id="room5"></div>
+          <div class="door d1"></div><div class="door d2"></div>
+          <div class="window w1"></div><div class="window w2"></div>
+        </div>
+      </div>
+      <div class="measureNote">As medidas estão em metros. As linhas da planta representam as paredes.</div>
+    </div>
+
+    <div class="card answerPanel">
+      <div class="questionBox">
+        <h3 id="questionTitle">Calcule a área</h3>
+        <div id="questionText" class="formula"></div>
+        <div class="answerRow">
+          <input id="answer" type="number" step="0.01" placeholder="Sua resposta" onkeydown="if(event.key==='Enter')checkAnswer()">
+          <span class="unit">m²</span>
+        </div>
+      </div>
+      <button class="primary" id="checkBtn" onclick="checkAnswer()">Conferir resposta</button>
+      <div id="feedback" class="feedback hidden"></div>
+      <div id="tipBox" class="feedback tip hidden"></div>
+      <button class="secondary hidden" id="nextBtn" onclick="nextQuestion()">Próximo cômodo →</button>
+    </div>
+  </div>
+</section>
+
+<section id="result" class="hidden card result">
+  <div class="stars">🏆 🎉 📐</div>
+  <h2>Projeto concluído!</h2>
+  <p>Você analisou todas as plantas e calculou as áreas.</p>
+  <div class="scoreBig"><span id="finalScore">0</span> pontos</div>
+  <p id="finalMessage"></p>
+  <div id="summary"></div>
+  <br>
+  <button class="primary" onclick="restart()">Jogar novamente</button>
+</section>
+</main>
+
+<footer>Desafio do Arquiteto • Atividade de Matemática • Áreas • 7º ano</footer>
+
+<script>
+const phases = [
+  {
+    title:"Fase 1 • Casa Inicial",
+    desc:"Comece calculando áreas de retângulos simples.",
+    rooms:[
+      ["Sala","4","3",12],
+      ["Quarto","3","3",9],
+      ["Cozinha","3","2",6],
+      ["Banheiro","2","2",4],
+      ["Varanda","4","2",8]
+    ]
+  },
+  {
+    title:"Fase 2 • Casa Moderna",
+    desc:"As medidas mudaram. Atenção às dimensões de cada cômodo.",
+    rooms:[
+      ["Sala","5","3",15],
+      ["Suíte","4","3",12],
+      ["Cozinha","4","2",8],
+      ["Escritório","3","2",6],
+      ["Varanda","5","2",10]
+    ]
+  },
+  {
+    title:"Fase 3 • Casa Compacta",
+    desc:"Agora entram números que exigem mais atenção.",
+    rooms:[
+      ["Sala","4,5","3",13.5],
+      ["Quarto 1","3,5","3",10.5],
+      ["Quarto 2","3,5","2,5",8.75],
+      ["Cozinha","3","2,5",7.5],
+      ["Banheiro","2,5","2",5]
+    ]
+  },
+  {
+    title:"Fase 4 • Projeto em Escala",
+    desc:"Calcule e depois descubra a área total da residência.",
+    rooms:[
+      ["Sala","6","3,5",21],
+      ["Quarto 1","4","3,5",14],
+      ["Quarto 2","4","3",12],
+      ["Cozinha","4","2,5",10],
+      ["Varanda","6","2",12]
+    ]
+  },
+  {
+    title:"Fase 5 • Grande Desafio",
+    desc:"Última planta! Mostre que você domina área.",
+    rooms:[
+      ["Sala","6,5","4",26],
+      ["Suíte","4,5","3,5",15.75],
+      ["Quarto","4","3,5",14],
+      ["Cozinha","4,5","3",13.5],
+      ["Varanda","6,5","2,5",16.25]
+    ]
+  }
+];
+
+let phaseIndex=0, roomIndex=0, score=0, phaseScores=[], answered=false;
+
+function startGame(){
+  document.getElementById("intro").classList.add("hidden");
+  document.getElementById("game").classList.remove("hidden");
+  phaseIndex=0; roomIndex=0; score=0; phaseScores=[];
+  render();
+}
+function render(){
+  const p=phases[phaseIndex], r=p.rooms[roomIndex];
+  document.getElementById("score").textContent=score;
+  document.getElementById("phase").textContent=phaseIndex+1;
+  document.getElementById("phaseTitle").textContent=p.title;
+  document.getElementById("phaseDesc").textContent=p.desc;
+  document.getElementById("progressBar").style.width=((phaseIndex*5+roomIndex+1)/(phases.length*5)*100)+"%";
+  document.getElementById("questionTitle").textContent=`Área do(a) ${r[0]}`;
+  document.getElementById("questionText").textContent=`Dimensões: ${r[1]} m × ${r[2]} m`;
+  document.getElementById("answer").value="";
+  document.getElementById("feedback").className="feedback hidden";
+  document.getElementById("tipBox").className="feedback tip hidden";
+  document.getElementById("nextBtn").classList.add("hidden");
+  document.getElementById("checkBtn").classList.remove("hidden");
+  answered=false;
+  drawRoomLabels(r);
+  document.getElementById("answer").focus();
+}
+function drawRoomLabels(r){
+  const ids=["room1","room2","room3","room4","room5"];
+  ids.forEach((id,i)=>{
+    const el=document.getElementById(id);
+    if(i<5){
+      const rr=phases[phaseIndex].rooms[i];
+      el.innerHTML=`<strong>${rr[0]}</strong><small>${rr[1]} m × ${rr[2]} m</small>`;
+      el.style.opacity="1";
+    }
+  });
+  document.getElementById("ctop").textContent=`${r[1]} m`;
+  document.getElementById("cright").textContent=`${r[2]} m`;
+  document.getElementById("cbot").textContent="";
+  document.getElementById("cleft").textContent="";
+}
+function normalize(n){
+  return Math.round(Number(n)*100)/100;
+}
+function checkAnswer(){
+  if(answered)return;
+  const input=document.getElementById("answer");
+  const value=normalize(input.value);
+  const r=phases[phaseIndex].rooms[roomIndex];
+  const correct=normalize(r[3]);
+  const fb=document.getElementById("feedback");
+  if(input.value==="" || isNaN(value)){
+    fb.className="feedback bad"; fb.textContent="Digite uma resposta antes de conferir.";
+    return;
+  }
+  answered=true;
+  if(value===correct){
+    score+=10; phaseScores[phaseIndex]=(phaseScores[phaseIndex]||0)+10;
+    fb.className="feedback ok";
+    fb.innerHTML=`✅ <b>Correto!</b> A área do ${r[0].toLowerCase()} é <b>${format(correct)} m²</b>. +10 pontos!`;
+  }else{
+    fb.className="feedback bad";
+    fb.innerHTML=`❌ Ainda não. A resposta correta é <b>${format(correct)} m²</b>. Revise no caderno: área = base × altura.`;
+  }
+  document.getElementById("checkBtn").classList.add("hidden");
+  document.getElementById("nextBtn").classList.remove("hidden");
+  document.getElementById("score").textContent=score;
+}
+function nextQuestion(){
+  if(roomIndex<4){roomIndex++;render();}
+  else if(phaseIndex<phases.length-1){phaseIndex++;roomIndex=0;render();}
+  else{finish();}
+}
+function finish(){
+  document.getElementById("game").classList.add("hidden");
+  document.getElementById("result").classList.remove("hidden");
+  document.getElementById("finalScore").textContent=score;
+  let msg=score>=240?"🏆 Arquiteto(a) de excelência! Você dominou os cálculos de área."
+    :score>=180?"🌟 Excelente projeto! Você mostrou bastante domínio."
+    :score>=120?"👏 Bom trabalho! Revise os cálculos que deram errado e tente novamente."
+    :"📐 O projeto está começando. Volte às fórmulas e tente mais uma vez!";
+  document.getElementById("finalMessage").textContent=msg;
+  let rows=phases.map((p,i)=>`<tr><td>${p.title.replace(/Fase \\d+ • /,"")}</td><td>${phaseScores[i]||0}/50</td></tr>`).join("");
+  document.getElementById("summary").innerHTML=`<table><thead><tr><th>Etapa</th><th>Pontos</th></tr></thead><tbody>${rows}</tbody></table>`;
+}
+function restart(){
+  document.getElementById("result").classList.add("hidden");
+  startGame();
+}
+function showHelp(){
+  const box=document.getElementById("tipBox");
+  box.className="feedback tip";
+  box.innerHTML="💡 <b>Dica:</b> para um retângulo, use <b>Área = base × altura</b>. Exemplo: 4 m × 3 m = 12 m². Faça primeiro no caderno!";
+}
+function format(n){
+  return n.toLocaleString("pt-BR",{maximumFractionDigits:2});
+}
+</script>
+</body>
+</html>
